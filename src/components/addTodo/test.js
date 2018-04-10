@@ -32,9 +32,9 @@ describe('AddTodo component', () => {
     it('Should call the submitTodo function when clicked', () => {
       component = mount(<AddTodo submitTodo={submitMock} />);
 
-      expect(submitMock.mock.calls.length).toEqual(0);
+      expect(submitMock).not.toHaveBeenCalled();
       component.find('form').simulate('submit');
-      expect(submitMock.mock.calls.length).toEqual(1);
+      expect(submitMock).toHaveBeenCalled();
     });
   });
 });
