@@ -18,7 +18,7 @@ describe('TodoList App', () => {
 
     expect(actual).to.equal(todoText);
   });
-  
+
   it('Should allow me to delete a Todo', () => {
       const todoText = 'Get better at testing';
       browser.url('http://localhost:3000/');
@@ -28,5 +28,17 @@ describe('TodoList App', () => {
       const actual = browser.element('.todo-text');
 
       expect(actual.state).to.equal('failure');
+  });
+
+  it('Should allow me to undelete a Todo', () => {
+      const todoText = 'Get better at testing';
+      browser.url('http://localhost:3000/');
+      browser.element('.todo-input').setValue(todoText);
+      browser.click('.todo-submit');
+      browser.click('.todo-delete');
+      browser.click('.todo-undelete');
+      const actual = browser.element('.todo-text');
+
+      expect(actual.state).to.equal(todoText);
   });
 });

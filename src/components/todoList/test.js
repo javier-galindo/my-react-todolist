@@ -1,4 +1,4 @@
-/* global describe, it, expect */
+/* global describe, it, expect, jest */
 
 import React from 'react';
 import { shallow } from 'enzyme';
@@ -8,14 +8,14 @@ describe('TodoList component', () => {
   const deleteMock = jest.fn();
 
   const props = {
-    [
+    todos: [
       {
         id: 1,
         text: 'A todo',
       },
     ],
-    deleteTodo: deleteMock
-  }
+    deleteTodo: deleteMock,
+  };
 
   const component = shallow(<TodoList {...props} />);
 
@@ -31,6 +31,5 @@ describe('TodoList component', () => {
     expect(deleteMock.mock.calls.length).toEqual(0);
     component.find('.todo-delete').simulate('click');
     expect(deleteMock.mock.calls.length).toEqual(1);
-  })
-
+  });
 });

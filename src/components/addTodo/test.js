@@ -7,11 +7,13 @@ import AddTodo from '.';
 describe('AddTodo component', () => {
   let component;
   const submitMock = jest.fn();
+  const undeleteMock = jest.fn();
 
   beforeEach(() => {
     component = shallow(
       <AddTodo
         submitTodo={submitMock}
+        undeleteTodo={undeleteMock}
       />,
     );
   });
@@ -35,6 +37,20 @@ describe('AddTodo component', () => {
       expect(submitMock).not.toHaveBeenCalled();
       component.find('form').simulate('submit');
       expect(submitMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('Undelete button', () => {
+    it('Should exist', () => {
+      expect(component.find('.todo-undelete').length).toEqual(1);
+    });
+
+    it('Should call the undeleteTodo function when clicked', () => {
+      component = mount(<AddTodo submitTodo={submitMock} undeleteTodo={undeleteMock} />);
+
+      expect(undeleteMock).not.toHaveBeenCalled();
+      component.find('.todo-undelete').simulate('click');
+      expect(undeleteMock).toHaveBeenCalled();
     });
   });
 });

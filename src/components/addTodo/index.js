@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const AddTodo = ({ submitTodo }) => {
+const AddTodo = ({ submitTodo, undeleteTodo }) => {
   let input;
 
   return (
@@ -23,6 +23,12 @@ const AddTodo = ({ submitTodo }) => {
 
         <button type="submit" className="todo-submit">
           Add Todo
+        </button>
+        <button
+          className="todo-undelete"
+          onClick={() => undeleteTodo()}
+        >
+          Undelete
         </button>
       </form>
     </div>
