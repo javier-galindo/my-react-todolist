@@ -20,7 +20,20 @@ const actions = {
       type: types.DELETE_TODO,
       id,
     }
-  }
+  },
+
+  undeleteTodo() {
+    return {
+      type: types.UNDELETE_TODO,
+    };
+  },
+
+  inputChanged(inputText) {
+    return {
+      type: types.INPUT_CHANGED,
+      inputText,
+    };
+  },
 };
 
 export default actions;

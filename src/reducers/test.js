@@ -25,7 +25,9 @@ describe('Reducer', () => {
             text: todoText,
           },
         ],
-        deleted: {}
+        deleted: {},
+        disableAddTodo:true,
+        disableUndelete:true,
       };
 
       expect(reducer(undefined, action)).toEqual(expectedState);
@@ -41,7 +43,8 @@ describe('Reducer', () => {
             text: todoText,
           },
         ],
-        deleted: {}
+        deleted: {},
+        disableUndelete: true
       };
 
       const action = {
@@ -55,6 +58,7 @@ describe('Reducer', () => {
           id: 1,
           text: todoText,
         },
+        disableUndelete: false
       };
 
       expect(reducer(startingState, action)).toEqual(expectedState);
@@ -69,11 +73,11 @@ describe('Reducer', () => {
           id: 1,
           text: todoText,
         },
+        disableUndelete: false,
       };
 
       const action = {
         type: types.UNDELETE_TODO,
-        id: 1,
       };
 
       const expectedState = {
@@ -83,10 +87,58 @@ describe('Reducer', () => {
             text: todoText,
           },
         ],
-        deleted: {}
+        deleted: {},
+        disableUndelete: true
       };
 
       expect(reducer(startingState, action)).toEqual(expectedState);
     });
   });
+
+  describe('Input change', () => {
+    it('Should return the correct state when no value entered', () => {
+      const startingState = {
+        todos: [],
+        deleted: {},
+        disableAddTodo: true
+      }
+
+      const action = {
+        type: types.INPUT_CHANGED,
+        inputText: '',
+      }
+
+      const expectedState = {
+        todos: [],
+        deleted: {},
+        disableAddTodo: true
+      }
+
+      expect(reducer(startingState, action)).toEqual(expectedState);
+    });
+
+
+    it('Should return the correct state when a value is entered', () => {
+      const startingState = {
+        todos: [],
+        deleted: {},
+        disableAddTodo: true
+      }
+
+      const action = {
+        type: types.INPUT_CHANGED,
+        inputText: todoText,
+      }
+
+      const expectedState = {
+        todos: [],
+        deleted: {},
+        disableAddTodo: false,
+      }
+
+      expect(reducer(startingState, action)).toEqual(expectedState);
+    })
+
+  })
+
 });
